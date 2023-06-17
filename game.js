@@ -1,5 +1,6 @@
 
- 
+
+
 
 
 let userScore=0;
@@ -7,8 +8,28 @@ let cpuScore=0;
 
 
 
+const total= document.querySelector('.total');
+
+
+const ROCK = document.querySelector('#rock');
+ROCK.addEventListener('click', () =>{
+    total.innerText = (playRound('ROCK',getComputerChoice()));
+    
+});
+
+const PAPER = document.querySelector('.paper');
+PAPER.addEventListener('click', () =>{
+    total.innerText = (playRound('PAPER',getComputerChoice()));
+    
+});
+
+const SCISSORS = document.querySelector('.scissors');
+SCISSORS.addEventListener('click', () => {
+    total.innerText = (playRound('SCISSORS', getComputerChoice()));
+
+});
   
-        function getComputerChoice() {// Makes the computer pick rock, paper or scissors at random so we have an opponent to play with.
+        function getComputerChoice() {// Makes the computer pick ROCK, PAPER or SCISSORS at random so we have an opponent to play with.
     const choices=
     ['ROCK', 'PAPER','SCISSORS'];
     let cpuPick=
@@ -17,85 +38,97 @@ let cpuScore=0;
     return cpuPick;
     }
 
-        function playRound() {
-    let computerSelection=getComputerChoice();
+const score = document.querySelector('.score');
 
-    const playerPic=prompt('pick either Rock, Paper or scissors');
-    let insensitivePlayerSelection=playerPic.toUpperCase();
+    
+    
 
+        function playRound(playerPic,computerSelection) {
+    
     let result;
-   let tie='Its a tie!';
-let youLose=`YOU LOST! ${computerSelection} BEATS ${insensitivePlayerSelection}!`;
-let youWin=`YOU WON! ${insensitivePlayerSelection} BEATS ${computerSelection}!`;
+   let tie='IT\'S A TIE!';
+let youLose=`DAMN! ${computerSelection} BEATS ${playerPic}!`;
+let youWin=`NICE! ${playerPic} BEATS ${computerSelection}!`;
 
-if (insensitivePlayerSelection===computerSelection) {
+if (playerPic===computerSelection) {
     result=tie;
-    console.log(game());
+   score.innerText=game();
     return result;
    
-}else if(insensitivePlayerSelection=='ROCK'){
+}else if(playerPic=='ROCK'){
         if(computerSelection=='PAPER'){
             ++cpuScore;
-            console.log(game());
+score.innerText=game();
             return youLose;
            
         }else{
             ++userScore;
-            console.log(game());
+score.innerText=game();
             return youWin;
         }
-}else if(insensitivePlayerSelection=='PAPER'){
+}else if(playerPic=='PAPER'){
     if(computerSelection=='SCISSORS'){
         ++cpuScore;
-        console.log(game());
+       score.innerText=game();
         return youLose;
        
     } else{
         ++userScore;
-        console.log(game());
+       score.innerText=game();
         return youWin;
         
     }
-} else if(insensitivePlayerSelection=='SCISSORS'){
+} else if(playerPic=='SCISSORS'){
         if(computerSelection=='ROCK'){
             ++cpuScore;
-            console.log(game());
+ score.innerText=game();
             return youLose;
 
         } else{
            
             ++userScore;
-            console.log(game());
+    score.innerText=game();  
             return youWin;
         }
     }
 }
-   
+   score.innerText=game()
         function game(){
-
-   
-
-
+            
     if (userScore==5){
         
-     alert (`You won with ${userScore} point(s)! and the computer lost with ${cpuScore} point(s)!`);
-       
+        const restart = document.createElement('button');
+        restart.innerText= 'PLAY AGAIN?';
+        restart.style = "font-size: xx-large; margin-top: 40px;"
+        restart.addEventListener('click', ()=>{
+            window.location.reload();
+        })
+        document.body.appendChild(restart);
+        ROCK.disabled = true;
+        PAPER.disabled = true;
+        SCISSORS.disabled = true;
+     return 'YOU WIN!';
       
     }
     else if (cpuScore==5){
-        alert (`You lost with ${userScore} point(s)! and the computer had ${cpuScore} point(s)!`);
+
+        const restart = document.createElement('button');
+        restart.innerText= 'PLAY AGAIN?';
+        restart.style = "font-size: xx-large; margin-top: 40px;"
+    restart.addEventListener('click', ()=>{
+        window.location.reload();
+       
+    })
+    document.body.appendChild(restart);
+    ROCK.disabled = true;
+    PAPER.disabled = true;
+    SCISSORS.disabled = true;
+    return 'YOU LOSE!';
       
     }
     else{
-        return `Game on! You have ${userScore} point(s) and the AI has ${cpuScore} point(s)`;
+        return `YOU ${userScore}    -    ${cpuScore} AI`;
     }  
 }
-
-
-
-
-   
-
-
 
 
